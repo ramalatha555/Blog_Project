@@ -1,0 +1,111 @@
+{% extends "nav.html" %}
+{% block content %}
+<header class="header_section long_section px-0">
+ <center> {% if messages %}
+                    
+  {% for message in messages %}
+      <li>
+          <span>{{ message }}</span>
+          <button class="close-btn" onclick="closeMessage(this)">X</button>
+      </li>
+  {% endfor %}
+
+{% endif %}</center>
+  <nav class="navbar navbar-expand-lg custom_nav-container ">
+    <a class="navbar-brand" href="#">
+      <span>
+        {% if user %}
+        {{user}}
+        {% endif %}
+      </span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class=""> </span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    
+      <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
+        <ul class="navbar-nav  ">
+         
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="about.html"> Profile</a>
+          </li>
+           -->
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'myblogs' %}">Blog</a>
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+            </li>
+          </li>
+         
+        </ul>
+      </div>
+     
+      <div class="quote_btn-container">
+        <a href="{% url 'logout' %}">
+          <span>
+            Logout
+          </span>
+          <i class="fa fa-user" aria-hidden="true"></i>
+        </a>
+        <!-- <form class="form-inline">
+          <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+        </form> -->
+      </div>
+    </div>
+  </nav>
+</header>
+<!-- end header section -->
+<!-- slider section -->
+<section class="slider_section long_section">
+  <div id="customCarousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="container ">
+          <div class="row">
+            <div class="col-md-5">
+              <div class="detail-box">
+                <h1>
+                  Read and Upload <br>
+                  Your Blogs Here
+                </h1>
+                <p>
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus quidem maiores perspiciatis, illo maxime voluptatem a itaque suscipit.
+                </p>
+                <div class="btn-box">
+                  <a href="{% url 'dashboard' %}" class="btn1">
+                    Read Blogs
+                  </a>
+                  <a href="{% url 'upload_blog' %}" class="btn2">
+                    Upload Blogs
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="img-box">
+                <img src="/static/images/h1.jpg" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+    
+  </div>
+</section>
+<!-- end slider section -->
+</div>
+<script>
+  function closeMessage(btn) {
+      btn.parentNode.style.display = 'none'; // Hide the parent <li> element
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: lightblue;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+   
+                <div class="container">
+                    {% if messages %}
+                    
+                        {% for message in messages %}
+                            <li>
+                                <span>{{ message }}</span>
+                                <button class="close-btn" onclick="closeMessage(this)">X</button>
+                            </li>
+                        {% endfor %}
+                  
+                {% endif %}
+                
+                    <h2>Login Form</h2>
+                    <form action="{% url 'login1' %}" method="post">
+                        {% csrf_token %}
+                        <input type="email" name="email" placeholder="Email" required>
+                        <input type="password" name="password" placeholder="Password" required>
+                        <input type="submit" value="Login">
+                        <!-- Add Forgot Password link -->
+                        <a href="{% url 'forgotpass' %}" style="text-decoration: none; color: #4caf50; display: block; margin-top: 10px; text-align: center;">Forgot Password?</a>
+
+
+                    </form>
+                </div>
+              
+
+           
+    </div>
+    <script>
+        function closeMessage(btn) {
+            btn.parentNode.style.display = 'none'; // Hide the parent <li> element
+        }
+    </script>
+    
+</body>
+</html>
+    

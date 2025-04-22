@@ -1,0 +1,93 @@
+{% extends "dashboard.html" %}
+{% block content%}
+    
+<style>
+	 
+	
+	.comment-box {
+		border: 1px solid #ced4da;
+		border-radius: 5px;
+		padding: 20px;
+		margin-bottom: 20px;
+	}
+	.comment-box .user-info {
+		font-weight: bold;
+		margin-bottom: 10px;
+	}
+	.comment-box .comment-text {
+		margin-bottom: 10px;
+	}
+	.comment-box .comment-date {
+		font-size: 12px;
+		color: #6c757d;
+	}
+	.comment-form {
+		margin-top: 20px;
+	}
+	.comment-form textarea {
+		width: 100%;
+		padding: 12px;
+		border: 1px solid #ced4da;
+		border-radius: 5px;
+		box-sizing: border-box;
+		margin-bottom: 10px;
+		resize: none;
+		transition: border-color 0.3s ease;
+	}
+	.comment-form textarea:focus {
+		outline: none;
+		border-color: #007bff;
+	}
+	.comment-form input[type="submit"] {
+		background-color: #007bff;
+		border: none;
+		padding: 10px 20px;
+		color: #ffffff;
+		border-radius: 5px;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+		margin-bottom: 60px;
+	}
+	.comment-form input[type="submit"]:hover {
+		background-color: #0056b3;
+	}
+	</style>
+    <div class="main-wrapper">
+	    
+	    <article class="blog-post px-3 py-5 p-md-5">
+		    <div class="container">
+				<div style="text-align: right;">
+					<a href="{% url 'update_blog' blog.id %}" style="margin-right: 10px; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; font-size: 16px; display: inline-block;">Update</a>
+					<a href="{% url 'delete_blog' blog.id%}" style="padding: 10px 20px; background-color: #f44336; color: white; text-decoration: none; border-radius: 5px; font-size: 16px; display: inline-block;">Delete</a>
+				</div>
+				
+				
+			    <header class="blog-post-header">
+				    <h2 class="title mb-2" style="text-align: left;">{{ blog.title }}</h2>
+
+				    <div class="meta mb-3"><span class="date">Published {{blog.time_field}}</span></div>
+			    </header>
+			    
+			    <div class="blog-post-body">
+				    <figure class="blog-banner">
+				        <a href="#"><img class="img-fluid" src="/{{blog.blog_pic}}" alt="image"></a>
+				        {% comment %} <figcaption class="mt-2 text-center image-caption">Image Credit: <a href="#" target="_blank">made4dev.com (Premium Programming T-shirts)</a></figcaption> {% endcomment %}
+				    </figure>
+				    <p>{{blog.description}} </p>
+				</div>
+				    
+				  
+</div>
+</div>
+
+
+{% comment %} 	    
+	    <footer class="footer text-center py-2 theme-bg-dark">
+		   
+                <small class="copyright">Designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a href="" target="_blank"></a> for developers</small>
+		   
+	    </footer>
+     {% endcomment %}
+    </div><!--//main-wrapper-->
+    
+{% endblock %}

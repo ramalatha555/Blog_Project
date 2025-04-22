@@ -1,0 +1,79 @@
+{% extends "index.html" %}
+{% block content %}
+<center>
+<div class="card mt-5" style="width: 40rem; height: 30em; border-radius: 25px; margin-left:120px;">
+    <div class="card-header">
+        <h2>Comments </h2>
+    </div>
+    <div class="card-body d-flex flex-column" style="background-color: #F5F5F4; border-radius: 25px;">
+        <div class="messages" id="messages">
+            {% for message in data %}
+                <div class="text">
+                    <span>
+                        <strong>{{ message.name }}</strong>: {{ message.comments }}
+                    </span>
+                    <span class="muted">
+                        {{ message.dateandtime }}
+                    </span>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="card-footer" style="background-color: #F9E1CD; border-radius: 25px; border: 1px solid #F2C7A3;">
+            <div class="row mt-auto" style="border-radius: 25px;">
+                <form id="message-form" action="{%url 'comments' id%}" method='post' >
+                    {% csrf_token %}
+                    <input type="text" rows="3" placeholder="Start typing..." name="message" id="message" onkeydown="sendMessage(event)"/>
+                    <input type="submit" name="send" value="Send" id="send-btn">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% comment %} <script type="text/javascript">
+    // JavaScript code for handling real-time messaging
+    const messageForm = document.getElementById("message-form");
+    const messageInput = document.getElementById("message");
+
+    // WebSocket connection
+    const socket = new WebSocket("ws://localhost:8000/ws/chat/");
+
+    // Event listener for form submission
+    messageForm.addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent form submission
+
+        // Get message from input field
+        const message = messageInput.value.trim();
+
+        // Send message to server
+        if (message !== "") {
+            socket.send(message);
+            messageInput.value = ""; // Clear input field after sending
+        }
+    });
+
+    // Event listener for incoming messages
+    socket.addEventListener("message", function(event) {
+        const message = event.data;
+
+        // Display incoming message in messages container
+        const messageElement = document.createElement("div");
+        messageElement.innerHTML = message;
+        document.getElementById("messages").appendChild(messageElement);
+
+        // Scroll to bottom of messages container
+        document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+    });
+
+    // Function to send message on pressing Enter key
+    function sendMessage(event) {
+        if (event && event.key !== "Enter") return;
+        const message = document.getElementById("message");
+        if (message.value == "") return;
+        socket.send(message.value);
+        message.value = "";
+    }
+</script> {% endcomment %}
+</center>
+{% endblock %}

@@ -1,0 +1,91 @@
+
+{% extends "index.html" %}
+ {% block content %}
+ <style>
+    .action-icons a {
+        margin-right: 10px; /* Adjust the spacing between icons as needed */
+    }
+</style>
+ <div class="main-wrapper">
+    <section class="cta-section theme-bg-light py-5">
+        <div class="container text-center">
+            <h2 class="heading">DevBlog - A Blog Template Made For Developers</h2>
+            <div class="intro">Welcome to my blog. Subscribe and get my latest blog post in your inbox.</div>
+            <form class="signup-form form-inline justify-content-center pt-3"   action="{% url 'search' %}"  method="post">
+                {% csrf_token%}
+                <div class="form-group">
+                    <label class="sr-only" for="semail">search</label>
+                    <input type="text" id="semail" name="sss" class="form-control mr-md-1 semail" placeholder="Enter Blog name">
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div><!--//container-->
+    </section>
+
+   
+    <section class="blog-list px-3 py-5 p-md-5">
+        <div class="container">
+            {% for blog in data %}
+            <div class="item mb-5">
+                <div class="media">
+                    <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="/{{blog.blog_pic}}" alt="image">
+                    <div class="media-body">
+                        
+                        <h3 class="title mb-1"><a href="{% url 'blog_post' blog.id %}">{{blog.title}}</a></h3>
+                        {%if  blog.tagby %}
+                        <div class="meta mb-1"><span class="date">Published {{blog.time_field}}</span><span> Tag By {{blog.tagby}} </span></div>
+                    {% else %}
+                    <div class="meta mb-1"><span class="date">Published {{blog.time_field}}</span></div>
+                    {% endif %}
+
+                        <div class="intro">
+                            <div class="short-description">{{ blog.description|truncatechars:1000 }}</div>
+                            <div class="full-description" style="display: none;">{{ blog.description }}</div>
+                        </div>
+                        <a class="more-link" href="{% url 'blog_post' blog.id %}" >...Read more &rarr;</a>
+                        {% comment %} onclick="toggleDescription(this); return false;" {% endcomment %}
+                        
+                        <div class="action-icons mt-3">
+                            <a href="{% url 'likes' blog.id %}"><i class="far fa-thumbs-up"></i>{{blog.likes}}</a>
+                            <a href="{% url 'dislike' blog.id %}"><i class="far fa-thumbs-down"></i>{{blog.dislikes}}</a>
+                            <a href="{% url 'comments' blog.id %}"><i class="far fa-comment"></i></a>
+                            <a href="/{{ blog.blog_pic }}" download><i class="fas fa-download"></i></a>
+                        </div>
+                    </div><!--//media-body-->
+                </div><!--//media-->
+            </div><!--//item-->
+
+    {% endfor %}
+           
+        </div>
+    </section>
+    
+    {% comment %} <footer class="footer text-center py-2 theme-bg-dark">
+       
+        <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can buy the commercial license via our website: themes.3rdwavemedia.com */-->
+            <small class="copyright">Designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a href="#" target="_blank"></a> for developers</small>
+       
+    </footer> {% endcomment %}
+
+</div><!--//main-wrapper-->
+
+
+<script>
+    function toggleDescription(link) {
+        var intro = link.previousElementSibling;
+        var shortDescription = intro.querySelector('.short-description');
+        var fullDescription = intro.querySelector('.full-description');
+        if (shortDescription.style.display === "none") {
+            shortDescription.style.display = "block";
+            fullDescription.style.display = "none";
+            link.innerHTML = "...Read more &rarr;";
+        } else {
+            shortDescription.style.display = "none";
+            fullDescription.style.display = "block";
+            link.innerHTML = "...Read less &uarr;";
+        }
+    }
+    </script>
+
+
+{% endblock %}
